@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Visualizations</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Visualizations</h1>
+    <div id="fig1"></div>
+    <div id="fig2"></div>
+    <div id="fig3"></div>
+    <div id="fig4"></div>
+
+    <script type="text/javascript">
+        // Ensure that JSON is correctly parsed for JavaScript
+        var plots = JSON.parse('{{ plots | tojson | safe }}');
+        console.log('Plots:', plots); // Log plots to console for debugging
+
+        // Render each plotly visualization
+        try {
+            Plotly.react('fig1', plots.fig1.data, plots.fig1.layout);
+            Plotly.react('fig2', plots.fig2.data, plots.fig2.layout);
+            Plotly.react('fig3', plots.fig3.data, plots.fig3.layout);
+            Plotly.react('fig4', plots.fig4.data, plots.fig4.layout);
+        } catch (error) {
+            console.error('Error rendering Plotly charts:', error);
+        }
+    </script>
+</body>
+</html>
